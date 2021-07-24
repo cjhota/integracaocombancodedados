@@ -1,4 +1,7 @@
-const { age,date } = require('../../lib/utils')
+const {
+    age,
+    date
+} = require('../../lib/utils')
 
 module.exports = {
     index(req, res) {
@@ -27,13 +30,34 @@ module.exports = {
             }
         }
 
-        let {
-            avatar_url,
-            birth,
-            name,
-            services,
-            gender
-        } = req.body
+        // let {
+        //     avatar_url,
+        //     birth,
+        //     name,
+        //     services,
+        //     gender
+        // } = req.body
+
+        const query = `
+            INSERT INTRO instructors (
+                name,
+                avatar_url,
+                gender,
+                services,
+                birth,
+                created_at
+            ) VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING id
+        `
+
+        const values = [
+            req.body.name,
+            req.body.avatar_url,
+            req.body.gender,
+            req.body.services,
+            date(req.body.birth).iso,
+            date(Date.now()).iso,
+        ]
 
         return
     },
