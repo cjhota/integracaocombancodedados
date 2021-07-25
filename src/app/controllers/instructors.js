@@ -2,20 +2,23 @@ const {
     age,
     date
 } = require('../../lib/utils')
+const db = require('../../config/db.js')
 
 module.exports = {
     index(req, res) {
-        const instructors = data.instructors.map(function (instructor) {
-            return {
-                ...instructor,
-                services: instructor.services.split(",")
-            }
+        // const instructors = data.instructors.map(function (instructor) {
+        //     return {
+        //         ...instructor,
+        //         // services: instructor.services.split(",")
+        //     }
 
-        })
+        // })
 
-        return res.render("instructors/index", {
-            instructors
-        })
+        // , {
+        //     // instructors
+        // }
+
+        return res.render("instructors/index")
     },
     create(req, res) {
         return res.render("instructors/create")
@@ -30,16 +33,8 @@ module.exports = {
             }
         }
 
-        // let {
-        //     avatar_url,
-        //     birth,
-        //     name,
-        //     services,
-        //     gender
-        // } = req.body
-
         const query = `
-            INSERT INTRO instructors (
+            INSERT INTO instructors (
                 name,
                 avatar_url,
                 gender,
@@ -59,7 +54,11 @@ module.exports = {
             date(Date.now()).iso,
         ]
 
-        return
+        db.query(query, values, function(err, results) {
+            console.log(err)
+            console.log(results)
+            return
+        })
     },
     show(req, res) {
         return
