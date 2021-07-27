@@ -2,7 +2,7 @@ const {
     age,
     date
 } = require('../../lib/utils')
-const db = require('../../config/db.js')
+const db = require('../../config/db')
 
 module.exports = {
     index(req, res) {
