@@ -2,17 +2,15 @@ const { age,date } = require('../../lib/utils')
 
 module.exports = {
     index(req, res) {
-        const members = data.members.map(function (member) {
-            return {
-                ...member,
-                services: member.services.split(",")
-            }
+        // const members = data.members.map(function (member) {
+        //     return {
+        //         ...member,
+        //         services: member.services.split(",")
+        //     }
 
-        })
+        // })
 
-        return res.render("members/index", {
-            members
-        })
+        return res.render("members/index")
     },
     create(req, res) {
         return res.render("members/create")
