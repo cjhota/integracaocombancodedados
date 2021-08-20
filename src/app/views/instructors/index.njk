@@ -18,17 +18,20 @@
               <span style="background-image: url({{ instructor.avatar_url }})"></span>
               {{ instructor.name }}
             </td>
-            <td>{{instructor.services}}</td>
-            <td>{{instructor.students}}</td>
-              {# <td>
+              <td>
             {% for service in instructor.services %}
                 <span class="service">{{ service }}</span>
             {% endfor %}
-              </td> #}
+              </td>
+            {# <td>{{instructor.services}}</td> #}
+            <td>{{instructor.total_students}}</td>
+            
             <td>
               <a href="/instructors/{{ instructor.id }}">
-                <span class="material-icons">
-                  visibility
+                <span id="icons">
+                  {# visibility #}
+                  {# <img src="/public/assets/sleep.png" alt=""> #}
+                  <img src="https://img.icons8.com/ios/50/000000/closed-eye.png"/>
                 </span>
               </a>
             </td>

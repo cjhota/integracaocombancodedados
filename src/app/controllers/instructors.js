@@ -5,10 +5,19 @@ const Instructor =  require("../models/Instructor")
 
 module.exports = {
     index(req, res) {
-    
         Instructor.all(function(instructors) {
-            return res.render("instructors/index", { instructors })
-        })
+            instructors.map(instructor => {
+              return instructor.services = instructor.services.split(",")
+            })
+        
+            // console.log(instructors)
+            return res.render("instructors/index", {instructors})
+        
+            
+          })
+        // Instructor.all(function(instructors) {
+        //     return res.render("instructors/index", { instructors })
+        // })
 
     },
     create(req, res) {
