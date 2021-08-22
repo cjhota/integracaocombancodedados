@@ -1,23 +1,39 @@
-
-const { age, date } = require("../../lib/utils")
-const Instructor =  require("../models/Instructor")
+const {
+    age,
+    date
+} = require("../../lib/utils")
+const Instructor = require("../models/Instructor")
 // const db = require("../../config/db")
 
 module.exports = {
     index(req, res) {
-        Instructor.all(function(instructors) {
-            instructors.map(instructor => {
-              return instructor.services = instructor.services.split(",")
+
+        const {
+            filter
+        } = req.query
+
+        if (filter) {
+            Instructor.findBy(filter, function(instructors) {
+                instructors.map(instructor => {
+                            return instructor.services = instructor.services.split(",")
+                        })
+                        return res.render("instructors/index", {
+                            instructors, filter
+                        })
+                        console.log(instructors)
             })
-        
-            // console.log(instructors)
-            return res.render("instructors/index", {instructors})
-        
-            
-          })
-        // Instructor.all(function(instructors) {
-        //     return res.render("instructors/index", { instructors })
-        // })
+
+        } else {
+            Instructor.all(function(instructors) {
+                instructors.map(instructor => {
+                            return instructor.services = instructor.services.split(",")
+                        })
+                        return res.render("instructors/index", {
+                            instructors
+                        })
+                        console.log(instructors)
+            })
+        }
 
     },
     create(req, res) {
@@ -32,32 +48,36 @@ module.exports = {
                 return res.send("Please, fill all fields!")
             }
         }
-        
-        Instructor.create(req.body, function(instructor) {
+
+        Instructor.create(req.body, function (instructor) {
             return res.redirect(`/instructors/${instructor.id}`)
         })
-       
+
     },
     show(req, res) {
-        Instructor.find(req.params.id, function(instructor) {
-            if(!instructor) return res.send("Instructor not found!")
+        Instructor.find(req.params.id, function (instructor) {
+            if (!instructor) return res.send("Instructor not found!")
 
             instructor.age = age(instructor.birth)
             instructor.services = instructor.services.split(",")
 
             instructor.created_at = date(instructor.created_at).format
 
-            return res.render("instructors/show", { instructor })
+            return res.render("instructors/show", {
+                instructor
+            })
 
         })
     },
     edit(req, res) {
-        Instructor.find(req.params.id, function(instructor) {
-            if(!instructor) return res.send("Instructor not found!")
+        Instructor.find(req.params.id, function (instructor) {
+            if (!instructor) return res.send("Instructor not found!")
 
             instructor.birth = date(instructor.birth).iso
 
-            return res.render("instructors/edit", { instructor })
+            return res.render("instructors/edit", {
+                instructor
+            })
 
         })
     },
@@ -69,12 +89,12 @@ module.exports = {
                 return res.send("Please, fill all fields!")
             }
         }
-        Instructor.update(req.body, function() {
+        Instructor.update(req.body, function () {
             return res.redirect(`/instructors/${req.body.id}`)
         })
     },
     delete(req, res) {
-        Instructor.delete(req.body.id, function() {
+        Instructor.delete(req.body.id, function () {
             return res.redirect(`/instructors`)
         })
     },

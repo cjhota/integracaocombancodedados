@@ -53,6 +53,22 @@ module.exports = {
             callback(results.rows[0])
         })
     },
+    findBy(filter, callback){
+         //se remover o portecentagem o filtro ficá líteral já com ele incica que ele aceita a instrução antes ou depois ou ambos quando agrupado.
+        db.query(`
+        SELECT instructors.*, count(members) AS total_students
+        FROM instructors 
+        LEFT JOIN members ON (members.instructor_id =  instructors.id) 
+        WHERE instructors.name ILIKE '%${filter}%'
+        OR instructors.services ILIKE '%${filter}%'
+        GROUP BY instructors.id
+        ORDER BY total_students DESC
+        `, function (err, results) {
+            if (err) throw `Database Error! ${err}`
+
+            callback(results.rows)
+        })
+    },
     update(data, callback) {
         const query = `
         UPDATE instructors SET
