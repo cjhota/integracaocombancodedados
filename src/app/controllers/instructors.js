@@ -8,32 +8,52 @@ const Instructor = require("../models/Instructor")
 module.exports = {
     index(req, res) {
 
-        const {
-            filter
+        let {
+            filter,
+            page,
+            limit
         } = req.query
 
-        if (filter) {
-            Instructor.findBy(filter, function(instructors) {
-                instructors.map(instructor => {
-                            return instructor.services = instructor.services.split(",")
-                        })
-                        return res.render("instructors/index", {
-                            instructors, filter
-                        })
-                        console.log(instructors)
-            })
+        page = page || 1
+        limit = limit || 2
+        let offset = limit * (page - 1)
 
-        } else {
-            Instructor.all(function(instructors) {
+        const params = {
+            filter,
+            page,
+            limit,
+            offset,
+            callback(instructors) {
                 instructors.map(instructor => {
-                            return instructor.services = instructor.services.split(",")
-                        })
-                        return res.render("instructors/index", {
-                            instructors
-                        })
-                        console.log(instructors)
-            })
+                    return instructor.services = instructor.services.split(",")
+                })
+                return res.render("instructors/index", {
+                    instructors,
+                    filter
+                })
+            }
+
         }
+
+        Instructor.paginate(params)
+
+        // if (filter) {
+        //     Instructor.findBy(filter, function(instructors) {
+        //         
+        //                 console.log(instructors)
+        //     })
+
+        // } else {
+        //     Instructor.all(function(instructors) {
+        //         instructors.map(instructor => {
+        //                     return instructor.services = instructor.services.split(",")
+        //                 })
+        //                 return res.render("instructors/index", {
+        //                     instructors
+        //                 })
+        //                 console.log(instructors)
+        //     })
+        // }
 
     },
     create(req, res) {
