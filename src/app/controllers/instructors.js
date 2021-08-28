@@ -24,11 +24,17 @@ module.exports = {
             limit,
             offset,
             callback(instructors) {
+
+                const pagination = {
+                    total: Math.ceil(instructors[0].total / limit),
+                    page
+                }
                 instructors.map(instructor => {
                     return instructor.services = instructor.services.split(",")
                 })
                 return res.render("instructors/index", {
                     instructors,
+                    pagination,
                     filter
                 })
             }
@@ -36,24 +42,6 @@ module.exports = {
         }
 
         Instructor.paginate(params)
-
-        // if (filter) {
-        //     Instructor.findBy(filter, function(instructors) {
-        //         
-        //                 console.log(instructors)
-        //     })
-
-        // } else {
-        //     Instructor.all(function(instructors) {
-        //         instructors.map(instructor => {
-        //                     return instructor.services = instructor.services.split(",")
-        //                 })
-        //                 return res.render("instructors/index", {
-        //                     instructors
-        //                 })
-        //                 console.log(instructors)
-        //     })
-        // }
 
     },
     create(req, res) {
