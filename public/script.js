@@ -11,10 +11,15 @@ for (item of menuItems) {
     }
 }
 
-// Paginação
-function paginate(selectedPage, totalPages) {
+//Paginação
+//totalPages =20
+//selectedPage 15
+//[1, ..., 13,14,15,16,17, ..., 20]
+
+function pagination(selectedPage, totalPages) {
+   
     let pages = [],
-    oldpage
+        oldPage
 
     for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
 
@@ -23,38 +28,67 @@ function paginate(selectedPage, totalPages) {
         const pagesBeforeSelectedPage = currentPage >= selectedPage - 2
 
         if (firstAndLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
-            if (oldpage && currentPage - oldpage > 2) {
+
+            if (oldPage && currentPage - oldPage > 2) {
                 pages.push("...")
             }
 
-            if (oldpage && currentPage - oldpage > 2) {
-                pages.push(oldpage + 1)
+            if (oldPage && currentPage - oldPage == 2) {
+                pages.push(oldPage + 1)
             }
 
             pages.push(currentPage)
-            oldpage = currentPage
+
+            oldPage = currentPage
         }
     }
+    return pages
 }
 
-const pagination = document.querySelector(".pagination")
-const filter = pagination.dataset.filter
-const page = +pagination.dataset.page;
-const total = +pagination.data.total;
-const pages = paginate(page, total)
+// // Paginação
+// function paginate(selectedPage, totalPages) {
+//     let pages = [],
+//     oldpage
 
-let elemets = ""
- 
-for (let page of pages) {
-    if(String(page).includes("...")) {
-        elemets += `<span>${page}</span>`
-    } else {
-        if(filter) {
-            elemets += ` <a href= "?pages${page}&filter=${filter}">${page}</a>`
-        }else {
-            elemets += ` <a href= "?pages${page}">${page}</a>`
-        }
-    }
-}
+//     for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
 
-pagination.innerHTML = elemets
+//         const firstAndLastPage = currentPage == 1 || currentPage == totalPages
+//         const pagesAfterSelectedPage = currentPage <= selectedPage + 2
+//         const pagesBeforeSelectedPage = currentPage >= selectedPage - 2
+
+//         if (firstAndLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
+//             if (oldpage && currentPage - oldpage > 2) {
+//                 pages.push("...")
+//             }
+
+//             if (oldpage && currentPage - oldpage > 2) {
+//                 pages.push(oldpage + 1)
+//             }
+
+//             pages.push(currentPage)
+//             oldpage = currentPage
+//         }
+//     }
+// }
+
+// const pagination = document.querySelector(".pagination")
+// const filter = pagination.dataset.filter
+// const page = +pagination.dataset.page;
+// const total = +pagination.data.total;
+// const pages = paginate(page, total)
+
+// let elemets = ""
+
+// for (let page of pages) {
+//     if(String(page).includes("...")) {
+//         elemets += `<span>${page}</span>`
+//     } else {
+//         if(filter) {
+//             elemets += ` <a href= "?pages${page}&filter=${filter}">${page}</a>`
+//         }else {
+//             elemets += ` <a href= "?pages${page}">${page}</a>`
+//         }
+//     }
+// }
+
+// pagination.innerHTML = elemets
