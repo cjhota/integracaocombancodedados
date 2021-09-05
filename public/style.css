@@ -216,6 +216,10 @@ th {
     font-size: 14px;
 }
 
+tbody tr td {
+    box-sizing: border-box;
+}
+
  tbody tr td:first-child {
     display: grid;
     grid-template-columns: 64px 1fr;
@@ -312,6 +316,12 @@ td:last-child {
 
 /* pagination */
 
+.pagination {
+    content: "ssss";
+    background-color: red;
+    font-size: 18px;
+}
+/* 
 .table-container {
     display: grid;
     grid-template: 64px 1fr 16px / 1fr;
@@ -338,4 +348,4 @@ td:last-child {
 .paginariion a:hover {
     filter: brightness(0.3);
     border-bottom: 1px solid var(--primary-color);
-}
+} */

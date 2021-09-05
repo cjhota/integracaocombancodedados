@@ -16,7 +16,7 @@ for (item of menuItems) {
 //selectedPage 15
 //[1, ..., 13,14,15,16,17, ..., 20]
 
-function pagination(selectedPage, totalPages) {
+function paginate(selectedPage, totalPages) {
    
     let pages = [],
         oldPage
@@ -28,7 +28,6 @@ function pagination(selectedPage, totalPages) {
         const pagesBeforeSelectedPage = currentPage >= selectedPage - 2
 
         if (firstAndLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
-
             if (oldPage && currentPage - oldPage > 2) {
                 pages.push("...")
             }
@@ -45,50 +44,18 @@ function pagination(selectedPage, totalPages) {
     return pages
 }
 
-// // Paginação
-// function paginate(selectedPage, totalPages) {
-//     let pages = [],
-//     oldpage
 
-//     for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
+const pagination = document.querySelector(".pagination")
+const page = +pagination.dataset.page
+const total = +pagination.dataset.total
+const pages = paginate(page, total)
 
-//         const firstAndLastPage = currentPage == 1 || currentPage == totalPages
-//         const pagesAfterSelectedPage = currentPage <= selectedPage + 2
-//         const pagesBeforeSelectedPage = currentPage >= selectedPage - 2
+// console.log(pages)
 
-//         if (firstAndLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
-//             if (oldpage && currentPage - oldpage > 2) {
-//                 pages.push("...")
-//             }
+let elements = ""
 
-//             if (oldpage && currentPage - oldpage > 2) {
-//                 pages.push(oldpage + 1)
-//             }
+for(let page of pages) {
+    elements += `<a href="#">${page}</a>`
+}
 
-//             pages.push(currentPage)
-//             oldpage = currentPage
-//         }
-//     }
-// }
-
-// const pagination = document.querySelector(".pagination")
-// const filter = pagination.dataset.filter
-// const page = +pagination.dataset.page;
-// const total = +pagination.data.total;
-// const pages = paginate(page, total)
-
-// let elemets = ""
-
-// for (let page of pages) {
-//     if(String(page).includes("...")) {
-//         elemets += `<span>${page}</span>`
-//     } else {
-//         if(filter) {
-//             elemets += ` <a href= "?pages${page}&filter=${filter}">${page}</a>`
-//         }else {
-//             elemets += ` <a href= "?pages${page}">${page}</a>`
-//         }
-//     }
-// }
-
-// pagination.innerHTML = elemets
+pagination.innerHTML = elements

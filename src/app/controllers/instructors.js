@@ -25,34 +25,19 @@ module.exports = {
             offset,
             callback(instructors) {
                 const pagination = {
-                    filter,
-                    total,
+                    total: Math.ceil(instructors[0].total / limit),
                     page
                 }
-                return res.render("instructors/index", {instructors, filter})
+                // instructors.map(instructor => {
+                    //         return instructor.services = instructor.services.split(",")
+                    // })
+                return res.render("instructors/index", {instructors, pagination, filter})
+
             }
+
         }
 
         Instructor.paginate(params)
-            // callback(instructors) {
-
-        //         const pagination = {
-        //             total: Math.ceil(instructors[0].total / limit),
-        //             page
-        //         }
-        //         instructors.map(instructor => {
-        //             return instructor.services = instructor.services.split(",")
-        //         })
-        //         return res.render("instructors/index", {
-        //             instructors,
-        //             pagination,
-        //             filter
-        //         })
-        //     }
-
-        // }
-
-        // Instructor.paginate(params)
 
     },
     create(req, res) {
