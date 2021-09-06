@@ -21,23 +21,18 @@ module.exports = {
             limit,
             offset,
             callback(members) {
-
                 const pagination = {
                     total: Math.ceil(members[0].total / limit),
                     page
                 }
-             
-                return res.render("members/index", {
-                    members,
-                    pagination,
-                    filter
-                })
+               
+                return res.render("members/index", {members, pagination, filter})
+
             }
 
         }
 
         Member.paginate(params)
-
 
     },
     create(req, res) {
@@ -77,7 +72,6 @@ module.exports = {
 
             member.birth = date(member.birth).iso
 
-           
         Member.instructorsSelectOptions(function(options) {
             return res.render("members/edit", {member, instructorOptions: options})
         })

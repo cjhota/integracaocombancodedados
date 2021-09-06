@@ -28,9 +28,9 @@ module.exports = {
                     total: Math.ceil(instructors[0].total / limit),
                     page
                 }
-                // instructors.map(instructor => {
-                    //         return instructor.services = instructor.services.split(",")
-                    // })
+                instructors.map(instructor => {
+                            return instructor.services = instructor.services.split(",")
+                    })
                 return res.render("instructors/index", {instructors, pagination, filter})
 
             }

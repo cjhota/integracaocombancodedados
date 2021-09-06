@@ -9,8 +9,7 @@
       <input type="text" name="filter" placeholder="Nome ou Email" value="{{filter}}">
       <button type="submit">Filtrar</button>
     </form>
-  </div>
-
+</div>
 
     <table width="100%">
       <thead>
@@ -34,9 +33,7 @@
             <td>{{member.height }}cm</td>
             <td>
               <a href="/members/{{member.id}}">
-                <span class="material-icons">
-                  visibility
-                </span>
+                ver
               </a>
             </td>
           </tr>
@@ -45,7 +42,7 @@
     </table>
     <div class="pagination">
     data-page{{pagination.page}}
-    data-page{{pagination.total}}
+    data-total{{pagination.total}}
     data-filter{{filter}}
   </div>
   </div>

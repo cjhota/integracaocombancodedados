@@ -24,12 +24,12 @@
           <span style="background-image: url({{ instructor.avatar_url }})"></span>
           {{ instructor.name }}
         </td>
-        {# <td>
+        <td>
                 {% for service in instructor.services %}
                 <span class="service">{{ service }}</span>
                 {% endfor %}
-              </td> #}
-        <td>{{ instructor.services }}</td>
+              </td>
+        {# <td>{{ instructor.services }}</td> #}
         <td>{{ instructor.total_students }}</td>
         <td>
           <a href="/instructors/{{ instructor.id }}">
@@ -43,7 +43,7 @@
   </table>
   <div class="pagination" 
   data-page={{ pagination.page }} 
-  data-page={{ pagination.total }} 
+  data-total={{ pagination.total }} 
   data-filter={{ filter }}
   ></div>
 </div>

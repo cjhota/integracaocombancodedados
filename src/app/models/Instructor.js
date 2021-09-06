@@ -77,7 +77,7 @@ module.exports = {
             birth=($3),
             gender=($4),
             services=($5)
-        WHERE id = $6        
+        WHERE id = $6       
         `
 
         const values = [
